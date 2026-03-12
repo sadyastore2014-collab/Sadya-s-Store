@@ -1,0 +1,84 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["investor", "farmer", "admin"] },
+        "bio": { "type": "string" },
+        "photoURL": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Agricultural project listing",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "farmerId": { "type": "string" },
+        "farmerName": { "type": "string" },
+        "targetAmount": { "type": "number" },
+        "raisedAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["open", "funded", "completed"] },
+        "location": { "type": "string" },
+        "category": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "images": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["title", "farmerId", "targetAmount", "status"]
+    },
+    "Investment": {
+      "title": "Investment",
+      "description": "Investment record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "investorId": { "type": "string" },
+        "amount": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "confirmed"] }
+      },
+      "required": ["projectId", "investorId", "amount"]
+    },
+    "ProductionUpdate": {
+      "title": "ProductionUpdate",
+      "description": "Update on project production progress",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "description": { "type": "string" },
+        "status": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["projectId", "date", "description"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Agricultural projects"
+    },
+    "/investments/{investmentId}": {
+      "schema": "Investment",
+      "description": "Investment records"
+    },
+    "/projects/{projectId}/updates/{updateId}": {
+      "schema": "ProductionUpdate",
+      "description": "Production updates for a project"
+    }
+  }
+}

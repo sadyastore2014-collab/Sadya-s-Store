@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", serif;
+  --font-mono: "Space Mono", monospace;
+
+  --color-vert: #1a6b3a;
+  --color-vert-clair: #2d9b55;
+  --color-vert-pale: #e8f5ed;
+  --color-or: #d4a017;
+  --color-or-clair: #f0c040;
+  --color-terre: #8b4513;
+  --color-creme: #faf7f0;
+  --color-noir: #0d1b0e;
+  --color-gris: #6b7c6d;
+}
+
+@layer base {
+  body {
+    @apply bg-creme text-noir font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .text-highlight {
+    @apply text-vert-clair;
+  }
+  .text-gold {
+    @apply text-or;
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+}
+
+.particle {
+  @apply absolute rounded-full pointer-events-none;
+  animation: float linear infinite;
+}
+
